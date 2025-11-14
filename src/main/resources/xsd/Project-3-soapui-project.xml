@@ -1,15 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project id="e3acc3cf-4976-4fdd-8b78-8a2919c65cdb" activeEnvironment="Default" name="Project 3" resourceRoot="" soapui-version="5.9.1" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="fc0f4ccc-2507-404f-860e-32594df2ccec" wsaVersion="NONE" name="CoursesPortSoap11" type="wsdl" bindingName="{http://metro.edu/ics625/courses}CoursesPortSoap11" soapVersion="1_1" anonymous="optional" definition="file:/C:/Users/Thanh/Downloads/courses.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/C:/Users/Thanh/Downloads/courses.wsdl"><con:part><con:url>file:/C:/Users/Thanh/Downloads/courses.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://metro.edu/ics625/courses" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://metro.edu/ics625/courses" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://metro.edu/ics625/courses">
+<con:soapui-project id="e3acc3cf-4976-4fdd-8b78-8a2919c65cdb" activeEnvironment="Default" name="Project 3" resourceRoot="" soapui-version="5.9.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="1a515e5b-1592-48e7-adda-402bbd9549fa" wsaVersion="NONE" name="CoursesPortSoap11" type="wsdl" bindingName="{http://metro.edu/ics625/courses}CoursesPortSoap11" soapVersion="1_1" anonymous="optional" definition="file:/C:/Users/Thanh/OneDrive/Desktop/CSCI/ICS%20625/activity11/src/main/resources/courses.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="file:/C:/Users/Thanh/OneDrive/Desktop/CSCI/ICS%20625/activity11/src/main/resources/courses.wsdl"><con:part><con:url>file:/C:/Users/Thanh/OneDrive/Desktop/CSCI/ICS%20625/activity11/src/main/resources/courses.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://metro.edu/ics625/courses" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://metro.edu/ics625/courses" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://metro.edu/ics625/courses">
   <wsdl:types>
     <xs:schema elementFormDefault="qualified" targetNamespace="http://metro.edu/ics625/courses" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <!--CourseType matches CourseEntity-->
       <xs:complexType name="courseType">
         <xs:sequence>
-          <xs:element name="id" type="xs:long"/>
+          <xs:element minOccurs="0" name="id" type="xs:long"/>
           <xs:element name="number" type="xs:string"/>
           <xs:element name="title" type="xs:string"/>
+          <xs:element name="description" type="xs:string"/>
           <xs:element name="offered" type="xs:boolean"/>
         </xs:sequence>
       </xs:complexType>
+      <!--get all courses-->
+      <xs:element name="getAllCoursesRequest">
+        <xs:complexType>
+          <xs:sequence/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getAllCoursesResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="courses" type="tns:courseType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!--get by ID-->
+      <xs:element name="getCourseByIdRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getCourseByIdResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="course" type="tns:courseType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!--get by number-->
+      <xs:element name="getCourseByNumberRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="number" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getCourseByNumberResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <!--could be multiple with same number, so list-->
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="courses" type="tns:courseType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!--get by title-->
+      <xs:element name="getCourseByTitleRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="title" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="getCourseByTitleResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="courses" type="tns:courseType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!--add new course-->
       <xs:element name="addCourseRequest">
         <xs:complexType>
           <xs:sequence>
@@ -24,16 +86,43 @@
           </xs:sequence>
         </xs:complexType>
       </xs:element>
-      <xs:element name="getAllCoursesRequest" type="xs:anyType"/>
-      <xs:element name="getAllCoursesResponse">
+      <!--delete by ID-->
+      <xs:element name="deleteCourseByIdRequest">
         <xs:complexType>
           <xs:sequence>
-            <xs:element maxOccurs="unbounded" minOccurs="0" name="courses" type="tns:courseType"/>
+            <xs:element name="id" type="xs:long"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="deleteCourseByIdResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="deleted" type="xs:boolean"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!--update title + description-->
+      <xs:element name="updateCourseRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="id" type="xs:long"/>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="description" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="updateCourseResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" name="updated" type="tns:courseType"/>
           </xs:sequence>
         </xs:complexType>
       </xs:element>
     </xs:schema>
   </wsdl:types>
+  <wsdl:message name="getCourseByTitleRequest">
+    <wsdl:part element="tns:getCourseByTitleRequest" name="getCourseByTitleRequest"></wsdl:part>
+  </wsdl:message>
   <wsdl:message name="addCourseResponse">
     <wsdl:part element="tns:addCourseResponse" name="addCourseResponse"></wsdl:part>
   </wsdl:message>
@@ -43,10 +132,41 @@
   <wsdl:message name="getAllCoursesResponse">
     <wsdl:part element="tns:getAllCoursesResponse" name="getAllCoursesResponse"></wsdl:part>
   </wsdl:message>
+  <wsdl:message name="deleteCourseByIdResponse">
+    <wsdl:part element="tns:deleteCourseByIdResponse" name="deleteCourseByIdResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteCourseByIdRequest">
+    <wsdl:part element="tns:deleteCourseByIdRequest" name="deleteCourseByIdRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateCourseResponse">
+    <wsdl:part element="tns:updateCourseResponse" name="updateCourseResponse"></wsdl:part>
+  </wsdl:message>
   <wsdl:message name="addCourseRequest">
     <wsdl:part element="tns:addCourseRequest" name="addCourseRequest"></wsdl:part>
   </wsdl:message>
+  <wsdl:message name="getCourseByTitleResponse">
+    <wsdl:part element="tns:getCourseByTitleResponse" name="getCourseByTitleResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updateCourseRequest">
+    <wsdl:part element="tns:updateCourseRequest" name="updateCourseRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCourseByIdResponse">
+    <wsdl:part element="tns:getCourseByIdResponse" name="getCourseByIdResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCourseByIdRequest">
+    <wsdl:part element="tns:getCourseByIdRequest" name="getCourseByIdRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCourseByNumberRequest">
+    <wsdl:part element="tns:getCourseByNumberRequest" name="getCourseByNumberRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getCourseByNumberResponse">
+    <wsdl:part element="tns:getCourseByNumberResponse" name="getCourseByNumberResponse"></wsdl:part>
+  </wsdl:message>
   <wsdl:portType name="CoursesPort">
+    <wsdl:operation name="getCourseByTitle">
+      <wsdl:input message="tns:getCourseByTitleRequest" name="getCourseByTitleRequest"></wsdl:input>
+      <wsdl:output message="tns:getCourseByTitleResponse" name="getCourseByTitleResponse"></wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="addCourse">
       <wsdl:input message="tns:addCourseRequest" name="addCourseRequest"></wsdl:input>
       <wsdl:output message="tns:addCourseResponse" name="addCourseResponse"></wsdl:output>
@@ -55,9 +175,34 @@
       <wsdl:input message="tns:getAllCoursesRequest" name="getAllCoursesRequest"></wsdl:input>
       <wsdl:output message="tns:getAllCoursesResponse" name="getAllCoursesResponse"></wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="deleteCourseById">
+      <wsdl:input message="tns:deleteCourseByIdRequest" name="deleteCourseByIdRequest"></wsdl:input>
+      <wsdl:output message="tns:deleteCourseByIdResponse" name="deleteCourseByIdResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateCourse">
+      <wsdl:input message="tns:updateCourseRequest" name="updateCourseRequest"></wsdl:input>
+      <wsdl:output message="tns:updateCourseResponse" name="updateCourseResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCourseById">
+      <wsdl:input message="tns:getCourseByIdRequest" name="getCourseByIdRequest"></wsdl:input>
+      <wsdl:output message="tns:getCourseByIdResponse" name="getCourseByIdResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCourseByNumber">
+      <wsdl:input message="tns:getCourseByNumberRequest" name="getCourseByNumberRequest"></wsdl:input>
+      <wsdl:output message="tns:getCourseByNumberResponse" name="getCourseByNumberResponse"></wsdl:output>
+    </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="CoursesPortSoap11" type="tns:CoursesPort">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getCourseByTitle">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getCourseByTitleRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCourseByTitleResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="addCourse">
       <soap:operation soapAction=""/>
       <wsdl:input name="addCourseRequest">
@@ -76,27 +221,101 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="deleteCourseById">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="deleteCourseByIdRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="deleteCourseByIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateCourse">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="updateCourseRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="updateCourseResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCourseById">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getCourseByIdRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCourseByIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getCourseByNumber">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getCourseByNumberRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getCourseByNumberResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
   </wsdl:binding>
   <wsdl:service name="CoursesPortService">
     <wsdl:port binding="tns:CoursesPortSoap11" name="CoursesPortSoap11">
       <soap:address location="http://localhost:8080/ws"/>
     </wsdl:port>
   </wsdl:service>
-</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/ws</con:endpoint></con:endpoints><con:operation id="cd4b8432-2153-41c9-81ab-5aa5a1015857" isOneWay="false" action="" name="addCourse" bindingOperationName="addCourse" type="Request-Response" outputName="addCourseResponse" inputName="addCourseRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="7f5f1d21-fd64-436f-8a5e-b68ce43cad76" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cour="http://metro.edu/ics625/courses">\r
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:8080/ws</con:endpoint></con:endpoints><con:operation id="e3c1636f-febb-4a14-8e2a-e23f62dfe87e" isOneWay="false" action="" name="addCourse" bindingOperationName="addCourse" type="Request-Response" outputName="addCourseResponse" inputName="addCourseRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="e7a12cdc-ce93-4dea-b6e6-de5545395ae8" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cour="http://metro.edu/ics625/courses">\r
    <soapenv:Header/>\r
    <soapenv:Body>\r
       <cour:addCourseRequest>\r
          <cour:course>\r
-            <cour:id>212</cour:id>\r
-            <cour:number>ICS 141</cour:number>\r
-            <cour:title>Introduction To Programming</cour:title>\r
+            <cour:id>?</cour:id>\r
+            <cour:number>ICS 847</cour:number>\r
+            <cour:title>asdasda2313241</cour:title>\r
+            <cour:description>asdasdasd</cour:description>\r
             <cour:offered>true</cour:offered>\r
          </cour:course>\r
       </cour:addCourseRequest>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://metro.edu/ics625/courses/CoursesPort/addCourseRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="c9817bcd-e3d2-40e8-871e-e58f1b1f3a60" isOneWay="false" action="" name="getAllCourses" bindingOperationName="getAllCourses" type="Request-Response" outputName="getAllCoursesResponse" inputName="getAllCoursesRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="6842eb89-5c38-4ec6-bb49-56f2da110436" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cour="http://metro.edu/ics625/courses">\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://metro.edu/ics625/courses/CoursesPort/addCourseRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="4d2980c1-1387-466d-8127-d46ae2fdac5d" isOneWay="false" action="" name="deleteCourseById" bindingOperationName="deleteCourseById" type="Request-Response" outputName="deleteCourseByIdResponse" inputName="deleteCourseByIdRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="381bc69f-e681-4df0-9398-7eae83c9a253" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cour="http://metro.edu/ics625/courses">\r
    <soapenv:Header/>\r
    <soapenv:Body>\r
-      <cour:getAllCoursesRequest></cour:getAllCoursesRequest>\r
+      <cour:deleteCourseByIdRequest>\r
+         <cour:id>?</cour:id>\r
+      </cour:deleteCourseByIdRequest>\r
    </soapenv:Body>\r
-</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://metro.edu/ics625/courses/CoursesPort/getAllCoursesRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://metro.edu/ics625/courses/CoursesPort/deleteCourseByIdRequest"/></con:call></con:operation><con:operation id="defd6d03-da31-4f7b-93df-b37c5952f9ba" isOneWay="false" action="" name="getAllCourses" bindingOperationName="getAllCourses" type="Request-Response" outputName="getAllCoursesResponse" inputName="getAllCoursesRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="cca2d5e1-155e-4071-82ff-37a161812438" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cour="http://metro.edu/ics625/courses">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <cour:getAllCoursesRequest/>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://metro.edu/ics625/courses/CoursesPort/getAllCoursesRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="b7b7b29c-0865-47a1-9140-28f94e45579c" isOneWay="false" action="" name="getCourseById" bindingOperationName="getCourseById" type="Request-Response" outputName="getCourseByIdResponse" inputName="getCourseByIdRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="f16cc401-5075-4823-b784-e1475d63efd1" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cour="http://metro.edu/ics625/courses">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <cour:getCourseByIdRequest>\r
+         <cour:id>1</cour:id>\r
+      </cour:getCourseByIdRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://metro.edu/ics625/courses/CoursesPort/getCourseByIdRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation><con:operation id="b2139fa9-377f-4e13-bb2a-b90a994484d4" isOneWay="false" action="" name="getCourseByNumber" bindingOperationName="getCourseByNumber" type="Request-Response" outputName="getCourseByNumberResponse" inputName="getCourseByNumberRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="b30aa9ce-46cd-44d9-b784-b6f8a6b72980" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cour="http://metro.edu/ics625/courses">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <cour:getCourseByNumberRequest>\r
+         <cour:number>?</cour:number>\r
+      </cour:getCourseByNumberRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://metro.edu/ics625/courses/CoursesPort/getCourseByNumberRequest"/></con:call></con:operation><con:operation id="97153a3b-23f2-49d7-8a93-eb9389ad3a61" isOneWay="false" action="" name="getCourseByTitle" bindingOperationName="getCourseByTitle" type="Request-Response" outputName="getCourseByTitleResponse" inputName="getCourseByTitleRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="45bfbfc3-d43c-4281-83c4-7a8791f9164e" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cour="http://metro.edu/ics625/courses">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <cour:getCourseByTitleRequest>\r
+         <cour:title>?</cour:title>\r
+      </cour:getCourseByTitleRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://metro.edu/ics625/courses/CoursesPort/getCourseByTitleRequest"/></con:call></con:operation><con:operation id="48f95aad-5c57-4f3e-aef0-51cf7c45b1f7" isOneWay="false" action="" name="updateCourse" bindingOperationName="updateCourse" type="Request-Response" outputName="updateCourseResponse" inputName="updateCourseRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="2b6f236d-3c75-4b1b-9278-00c22ccec27a" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:8080/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:cour="http://metro.edu/ics625/courses">\r
+   <soapenv:Header/>\r
+   <soapenv:Body>\r
+      <cour:updateCourseRequest>\r
+         <cour:id>?</cour:id>\r
+         <cour:title>?</cour:title>\r
+         <cour:description>?</cour:description>\r
+      </cour:updateCourseRequest>\r
+   </soapenv:Body>\r
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://metro.edu/ics625/courses/CoursesPort/updateCourseRequest"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/><con:sensitiveInformation/></con:soapui-project>

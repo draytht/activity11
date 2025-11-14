@@ -6,7 +6,7 @@ import jakarta.xml.bind.annotation.XmlElement;
 import jakarta.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "courseType", propOrder = { "id", "number", "title", "offered" })
+@XmlType(name = "courseType", propOrder = { "id", "number", "title", "description", "offered" })
 public class CourseType {
 
     @XmlElement(name = "id")

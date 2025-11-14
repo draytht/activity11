@@ -15,22 +15,6 @@
         </xs:sequence>
     </xs:complexType>
     
-    <!-- get all offered courses -->
-    <xs:element name="getAllOfferedCoursesRequest">
-        <xs:complexType>
-            <xs:sequence/>
-        </xs:complexType>
-    </xs:element>
-    
-    <xs:element name="getAllOfferedCoursesResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element name="courses" type="tns:courseType"
-                            minOccurs="0" maxOccurs="unbounded"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    
     <!-- get all courses -->
     <xs:element name="getAllCoursesRequest">
         <xs:complexType>

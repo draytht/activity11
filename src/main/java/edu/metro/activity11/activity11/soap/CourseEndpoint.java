@@ -65,18 +65,6 @@ public class CourseEndpoint {
         return response;
     }
 
-    // get all offered courses
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getAllOfferedCoursesRequest")
-    @ResponsePayload
-    public GetAllOfferedCoursesResponse getAllOfferedCourses(@RequestPayload GetAllOfferedCoursesRequest request) {
-        GetAllOfferedCoursesResponse response = new GetAllOfferedCoursesResponse();
-        List<CourseEntity> all = service.getAllOfferedCourses();
-        for (CourseEntity e : all) {
-            response.getCourses().add(toCourseType(e));
-        }
-        return response;
-    }
-
     // get by ID
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getCourseByIdRequest")
     @ResponsePayload

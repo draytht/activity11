@@ -12,13 +12,13 @@ import jakarta.xml.bind.annotation.XmlType;
 public class AddCourseRequest {
 
     @XmlElement(required = true)
-    protected CourseType course;
+    private CourseType course;
 
     public CourseType getCourse() {
         return course;
     }
 
-    public void setCourse(CourseType value) {
-        this.course = value;
+    public void setCourse(CourseType course) {
+        this.course = course;
     }
 }

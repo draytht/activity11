@@ -13,21 +13,6 @@
         </xs:sequence>
     </xs:complexType>
     
-    <!-- get all offered courses -->
-    <xs:element name="getAllOfferedCoursesRequest">
-        <xs:complexType>
-            <xs:sequence/>
-        </xs:complexType>
-    </xs:element>
-    
-    <xs:element name="getAllOfferedCoursesResponse">
-        <xs:complexType>
-            <xs:sequence>
-                <xs:element maxOccurs="unbounded" minOccurs="0" name="courses" type="tns:courseType"/>
-            </xs:sequence>
-        </xs:complexType>
-    </xs:element>
-    
     <!-- get all courses -->
     <xs:element name="getAllCoursesRequest">
         <xs:complexType>
@@ -178,16 +163,8 @@
     <wsdl:part element="tns:updateCourseResponse" name="updateCourseResponse">
     </wsdl:part>
   </wsdl:message>
-  <wsdl:message name="getAllOfferedCoursesRequest">
-    <wsdl:part element="tns:getAllOfferedCoursesRequest" name="getAllOfferedCoursesRequest">
-    </wsdl:part>
-  </wsdl:message>
   <wsdl:message name="addCourseRequest">
     <wsdl:part element="tns:addCourseRequest" name="addCourseRequest">
-    </wsdl:part>
-  </wsdl:message>
-  <wsdl:message name="getAllOfferedCoursesResponse">
-    <wsdl:part element="tns:getAllOfferedCoursesResponse" name="getAllOfferedCoursesResponse">
     </wsdl:part>
   </wsdl:message>
   <wsdl:message name="getCourseByTitleResponse">
@@ -243,12 +220,6 @@
       <wsdl:input message="tns:updateCourseRequest" name="updateCourseRequest">
     </wsdl:input>
       <wsdl:output message="tns:updateCourseResponse" name="updateCourseResponse">
-    </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="getAllOfferedCourses">
-      <wsdl:input message="tns:getAllOfferedCoursesRequest" name="getAllOfferedCoursesRequest">
-    </wsdl:input>
-      <wsdl:output message="tns:getAllOfferedCoursesResponse" name="getAllOfferedCoursesResponse">
     </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="getCourseById">
@@ -308,15 +279,6 @@
         <soap:body use="literal"/>
       </wsdl:input>
       <wsdl:output name="updateCourseResponse">
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="getAllOfferedCourses">
-      <soap:operation soapAction=""/>
-      <wsdl:input name="getAllOfferedCoursesRequest">
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output name="getAllOfferedCoursesResponse">
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
