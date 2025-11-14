@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://metro.edu/ics625/courses"
+           xmlns:tns="http://metro.edu/ics625/courses"
+           elementFormDefault="qualified">
+    
+    <!-- CourseType matches CourseEntity -->
+    <xs:complexType name="courseType">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long" minOccurs="0"/>
+            <xs:element name="number" type="xs:string"/>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="description" type="xs:string"/>
+            <xs:element name="offered" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+    
+    <!-- get all offered courses -->
+    <xs:element name="getAllOfferedCoursesRequest">
+        <xs:complexType>
+            <xs:sequence/>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="getAllOfferedCoursesResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="courses" type="tns:courseType"
+                            minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <!-- get all courses -->
+    <xs:element name="getAllCoursesRequest">
+        <xs:complexType>
+            <xs:sequence/>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="getAllCoursesResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="courses" type="tns:courseType"
+                            minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <!-- get by ID -->
+    <xs:element name="getCourseByIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="getCourseByIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="course" type="tns:courseType" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <!-- get by number -->
+    <xs:element name="getCourseByNumberRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="number" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="getCourseByNumberResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <!-- could be multiple with same number, so list -->
+                <xs:element name="courses" type="tns:courseType"
+                            minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <!-- get by title -->
+    <xs:element name="getCourseByTitleRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="title" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="getCourseByTitleResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="courses" type="tns:courseType"
+                            minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <!-- add new course -->
+    <xs:element name="addCourseRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="course" type="tns:courseType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="addCourseResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="saved" type="tns:courseType"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <!-- delete by ID -->
+    <xs:element name="deleteCourseByIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="deleteCourseByIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="deleted" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <!-- update title + description -->
+    <xs:element name="updateCourseRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:long"/>
+                <xs:element name="title" type="xs:string"/>
+                <xs:element name="description" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+    <xs:element name="updateCourseResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="updated" type="tns:courseType" minOccurs="0"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+    
+</xs:schema>

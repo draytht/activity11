@@ -1,14 +1,24 @@
 package edu.metro.activity11.activity11.soap;
 
-import jakarta.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlRootElement;
+import jakarta.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlRootElement(name = "addCourseRequest", namespace = "http://metro.edu/ics625/courses")
+@XmlType(name = "", propOrder = { "course" })
+@XmlRootElement(name = "addCourseRequest")
 public class AddCourseRequest {
 
-    @XmlElement(name = "course", namespace = "http://metro.edu/ics625/courses", required = true)
-    private CourseType course;
+    @XmlElement(required = true)
+    protected CourseType course;
 
-    public CourseType getCourse() { return course; }
-    public void setCourse(CourseType course) { this.course = course; }
+    public CourseType getCourse() {
+        return course;
+    }
+
+    public void setCourse(CourseType value) {
+        this.course = value;
+    }
 }

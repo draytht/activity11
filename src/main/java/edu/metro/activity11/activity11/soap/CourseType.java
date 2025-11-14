@@ -1,32 +1,64 @@
 package edu.metro.activity11.activity11.soap;
 
-import jakarta.xml.bind.annotation.*;
+import jakarta.xml.bind.annotation.XmlAccessType;
+import jakarta.xml.bind.annotation.XmlAccessorType;
+import jakarta.xml.bind.annotation.XmlElement;
+import jakarta.xml.bind.annotation.XmlType;
 
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "courseType", propOrder = { "id", "number", "title", "offered" })
 public class CourseType {
 
-    @XmlElement(required = true)
-    private long id;
+    @XmlElement(name = "id")
+    private Long id;
 
-    @XmlElement(required = true)
+    @XmlElement(name = "number", required = true)
     private String number;
 
-    @XmlElement(required = true)
+    @XmlElement(name = "title", required = true)
     private String title;
 
-    @XmlElement(required = true)
+    @XmlElement(name = "description", required = true)
+    private String description;
+
+    @XmlElement(name = "offered")
     private boolean offered;
 
-    public long getId() { return id; }
-    public void setId(long id) { this.id = id; }
+    public Long getId() {
+        return id;
+    }
 
-    public String getNumber() { return number; }
-    public void setNumber(String number) { this.number = number; }
+    public void setId(Long value) {
+        this.id = value;
+    }
 
-    public String getTitle() { return title; }
-    public void setTitle(String title) { this.title = title; }
+    public String getNumber() {
+        return number;
+    }
 
-    public boolean isOffered() { return offered; }
-    public void setOffered(boolean offered) { this.offered = offered; }
+    public void setNumber(String value) {
+        this.number = value;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String value) {
+        this.title = value;
+    }
+    public String getDescription() {
+        return description;
+    }
+    public void setDescription(String value) {
+        this.description = value;
+    }
+
+    public boolean isOffered() {
+        return offered;
+    }
+
+    public void setOffered(boolean value) {
+        this.offered = value;
+    }
 }

@@ -13,6 +13,8 @@ public class CourseEntity {
     private String number;
     private String title;
     private boolean offered;
+    @Column(length = 2000)
+    private String description;
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -22,6 +24,9 @@ public class CourseEntity {
 
     public String getTitle() { return title; }
     public void setTitle(String title) { this.title = title; }
+
+    public String getDescription(){ return description;}
+    public void setDescription(String description){ this.description = description; }
 
     public boolean isOffered() { return offered; }
     public void setOffered(boolean offered) { this.offered = offered; }
